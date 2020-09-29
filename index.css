@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333333;
+}
+
+header {
+    height: 100px;
+}
+
+#content {
+    width: 100%;
+    height: calc(100vh - 100px);
+}
+
+.week-wrapper {
+    display: flex;
+    padding: 10px 10%;
+}
+
+.week-day {
+    flex: 1;
+    margin: 5px 10px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.week-day.selected {
+    background-color: yellow;
+}
+
+.viewport {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
