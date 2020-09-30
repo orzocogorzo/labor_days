@@ -26,6 +26,7 @@ def get_mimetype (path):
 
 
 class Workers (Resource):
+      
       def get (self, day):
             query = """SELECT
                 a.id,
@@ -45,12 +46,14 @@ class Workers (Resource):
             cur = db.cursor()
             cur.execute(query, (day,))
 
+            data = cur.fetchall()
+
             data = [
                   {
                         "id": row[0],
                         "name": row[1],
                         "works": row[2]
-                  } for row in cur.fetchall()
+                  } for row in data
             ]
 
             db.close()
@@ -60,15 +63,17 @@ class Workers (Resource):
 
 @app.route("/", methods=["GET"])
 def index ():
-      content = open("index.html", "r").read()
-      return Response(content,  mimetype="text/html")
+      with open("index.html", "r") as connection:
+            content = connection.read()
+            return Response(content,  mimetype="text/html")
 
 
 @app.route("/statics/<path:path>", methods=["GET"])
 def statics (path):
       if os.path.isfile(path):
-            content = open(path, "r").read()
-            return Response(content, mimetype=get_mimetype(path))
+            with open(path, "r") as conn:
+                  content = conn.read()
+                  return Response(content, mimetype=get_mimetype(path))
       else:
             abort(404)
 
